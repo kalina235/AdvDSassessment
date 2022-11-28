@@ -55,10 +55,10 @@ def download_prop_data(beg_year=1995, end_year=2022):
   for year in range(beg_year, end_year+1):
     urllib.request.urlretrieve(f'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{year}.csv', f'pp_data{year}.csv')
    
-def upload_prop_data(beg_year=1995, end_year=2022):
+def upload_prop_data(beg_year=1995, end_year=2022, conn):
   for year in range(beg_year, end_year+1):
     print(year)
-    cur.execute(f'''
+    kexecute(conn, f'''
     LOAD DATA LOCAL INFILE 'pp_data{year}.csv' INTO TABLE pp_data
     FIELDS TERMINATED BY ',' 
     ENCLOSED BY '"';
