@@ -55,7 +55,7 @@ def download_prop_data(beg_year=1995, end_year=2022):
   for year in range(beg_year, end_year+1):
     urllib.request.urlretrieve(f'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{year}.csv', f'pp_data{year}.csv')
    
-def upload_prop_data(beg_year=1995, end_year=2022, conn):
+def upload_prop_data(conn, beg_year=1995, end_year=2022):
   for year in range(beg_year, end_year+1):
     print(year)
     kexecute(conn, f'''
