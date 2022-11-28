@@ -15,9 +15,12 @@ def data():
     """Read the data from the web or local file, returning structured format such as a data frame"""
     raise NotImplementedError
 
-def kexecute(cur, sqlquery =""):
-    cur.execute(sqlquery)
-    return cur.fetchall()
+def kexecute(conn, sqlquery =""):
+    curfresh = conn.cursor()
+    curfresh.execute(sqlquery)
+    ret = curfresh.fetchall()
+    curfresh.close()
+    return ret
     
 def create_pp_data():
   cur.execute(f'''
@@ -64,10 +67,11 @@ def select_top(conn, table,  n):
     :param table: The table to query
     :param n: Number of rows to query
     """
-   # cur = conn.cursor()
-    cur.execute(f'SELECT * FROM {table} LIMIT {n}')
+    curnew = conn.cursor()
+    curnew.execute(f'SELECT * FROM {table} LIMIT {n}')
 
-    rows = cur.fetchall()
+    rows = curnew.fetchall()
+    curnew.close()
     return rows
 
 def head(conn, table, n=5):
