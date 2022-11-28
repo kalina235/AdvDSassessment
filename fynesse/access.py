@@ -22,7 +22,8 @@ def kexecute(conn, sqlquery =""):
     curfresh.close()
     return ret
     
-def create_pp_data():
+def create_pp_data(conn):
+  cur= conn.cursor()
   cur.execute(f'''
   DROP TABLE IF EXISTS `pp_data`;''')
   cur.execute(f'''
@@ -45,7 +46,9 @@ def create_pp_data():
     `record_status` varchar(2) COLLATE utf8_bin NOT NULL,
     `db_id` bigint(20) unsigned NOT NULL
   ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;''')
-  return cur.fetchall()
+  ret =  cur.fetchall()
+  cur.close()
+  return ret
 
 def download_prop_data(beg_year=1995, end_year=2022):
   for year in range(beg_year, end_year+1):
