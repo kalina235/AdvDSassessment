@@ -1,7 +1,6 @@
 from .config import *
 
-from fynesse import adress
-
+from fynesse import access
 """These are the types of import we might expect in this file
 import pandas
 import bokeh
