@@ -1,6 +1,6 @@
 from .config import *
 
-import .access
+from fynesse import adress
 
 """These are the types of import we might expect in this file
 import pandas
