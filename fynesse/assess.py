@@ -28,3 +28,9 @@ def view(data):
 def labelled(data):
     """Provide a labelled set of data ready for supervised learning."""
     raise NotImplementedError
+
+def postcode_to_coord(pcode): 
+  """return a (longitude, latitude) pair given a postcode
+  param:pcode: string: a postcode to convert into coords"""
+  nomi = pgeocode.Nominatim('gb')
+  return (nomi.query_postal_code(pcode)['longitude'], nomi.query_postal_code(pcode)['latitude'])    
