@@ -88,10 +88,10 @@ def sanity_checks(conn):
     print(kexecute(conn, f'SELECT YEAR(date_of_transfer), COUNT(*) FROM pp_data GROUP BY YEAR(date_of_transfer)')) #correct counts for this below :)
     print("\n# of entries in postcode_data")
     print(kexecute(conn, f'SELECT max(db_id) FROM postcode_data')) #2.6MLN
-    print("\n columns of pp_data are:", access.kexecute(conn, f"show columns from pp_data")) #columns
-    print("\n columns of postcode_data are:\n", access.kexecute(conn, f"show columns from postcode_data")) #columns
-    print("\n the first 5 entries of pp_data are above\n", access.head(conn, "pp_data", 5))
-    print("\n the first 5 entries of postcode_data are above\n", access.head(conn, "postcode_data", 5))
+    print("\n columns of pp_data are:", kexecute(conn, f"show columns from pp_data")) #columns
+    print("\n columns of postcode_data are:\n", kexecute(conn, f"show columns from postcode_data")) #columns
+    print("\n the first 5 entries of pp_data are above\n", head(conn, "pp_data", 5))
+    print("\n the first 5 entries of postcode_data are above\n", head(conn, "postcode_data", 5))
     
 def select_top(conn, table,  n):
     """
