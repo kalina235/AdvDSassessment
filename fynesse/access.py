@@ -108,8 +108,8 @@ def head(conn, table, n=5):
     :param table: The table to query
     :param n: Number of rows to query
     """
-  rows = select_top(conn, table, n)
-  for r in rows:
+    rows = select_top(conn, table, n)
+    for r in rows:
       print(r)
     
 def bound_box(longitude, latitude, radius):
@@ -119,7 +119,7 @@ def bound_box(longitude, latitude, radius):
     :param latitude: lat. of the centre
     :param radius: size of the side of the box
     """
-  return (
+    return (
       longitude - radius/2,
       longitude + radius/2,
       latitude  - radius/2,
