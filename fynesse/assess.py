@@ -29,7 +29,7 @@ import sklearn.feature_extraction"""
 
 
 def inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.5):
-  access.inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.5)
+  return access.inner_join(conn, coord, dates, extra_stuff, radius)
 
 def data():
     """Load the data from access and ensure missing values are correctly encoded as well as indices correct, column names informative, date and times correctly formatted. Return a structured data structure such as a data frame."""
