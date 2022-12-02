@@ -7,7 +7,6 @@ import httplib2
 #import mongodb
 #import sqlite
 import urllib.request
-import pandas
 import numpy as np
 from shapely.geometry import Point 
 import geopandas as gpd
