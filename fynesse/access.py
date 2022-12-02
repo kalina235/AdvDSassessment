@@ -128,18 +128,18 @@ def fresh_pp_database_creation(conn):
 
 def download_prop_data(beg_year=1995, end_year=2022):
     """ Download data between bey_year and end_year inclusive"""
-  for year in range(beg_year, end_year+1):
-    urllib.request.urlretrieve(f'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{year}.csv', f'pp_data{year}.csv')
+    for year in range(beg_year, end_year+1):
+        urllib.request.urlretrieve(f'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{year}.csv', f'pp_data{year}.csv')
    
 def upload_prop_data(conn, beg_year=1995, end_year=2022):
         """ Upload data from local storage between bey_year and end_year inclusive into pp_data table"""
-  for year in range(beg_year, end_year+1):
-    print(year)
-    kexecute(conn, f'''
-    LOAD DATA LOCAL INFILE 'pp_data{year}.csv' INTO TABLE pp_data
-    FIELDS TERMINATED BY ',' 
-    ENCLOSED BY '"';
-    ''')
+    for year in range(beg_year, end_year+1):
+        print(year)
+        kexecute(conn, f'''
+        LOAD DATA LOCAL INFILE 'pp_data{year}.csv' INTO TABLE pp_data
+        FIELDS TERMINATED BY ',' 
+        ENCLOSED BY '"';
+        ''')
   
 def sanity_checks(conn):
     """
