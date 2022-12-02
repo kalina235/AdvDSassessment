@@ -73,7 +73,7 @@ def plot_heatmaps(conn, location, dates, period_in_days, coord = None, modulo = 
       plot_price_heatmap(conn, location, dfslice, dates = (begdate,j))
       begdate = j
     
- def plot_price_through_date_range(conn, df, info, date_range=356, box_radius=0.02, property_type = " "):
+def plot_price_through_date_range(conn, df, info, date_range=356, box_radius=0.02, property_type = " "):
     df['date_of_transfer'] = pd.to_datetime(df['date_of_transfer'])
     if(property_type != " "):
       df = df[df['property_type'] == property_type]
@@ -85,7 +85,7 @@ def plot_heatmaps(conn, location, dates, period_in_days, coord = None, modulo = 
     plt.legend()
     plt.show()
 
- def price_by_year(df, info):
+def price_by_year(df, info):
     fig, ax = plt.subplots()
     df = df[df['price'] < 10000000] # removing anomaly
     df['date_of_transfer'] = pd.to_datetime(df['date_of_transfer'])
@@ -93,7 +93,7 @@ def plot_heatmaps(conn, location, dates, period_in_days, coord = None, modulo = 
     ax.set_title(info)
     ax.plot(to_plot.price)
     
- def plot_price_histogram(df, prop_type, info, log = False):
+def plot_price_histogram(df, prop_type, info, log = False):
     """
     Plot a histogram of prices of a certain type
     :param df: property price df
@@ -147,7 +147,7 @@ def plot_house_types_distributions(conn, info, df, log = False):
     fig.legend(axs, labels=labels, loc="upper right", borderaxespad=0.1)
     fig.subplots_adjust(top=0.85)
     
- def haversine_dist(row, coords):
+def haversine_dist(row, coords):
     lon1, lat1 = coords
     longs, lats = row
     lon2 = np.array(longs)
