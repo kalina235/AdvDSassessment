@@ -12,6 +12,7 @@ import urllib.request
 
 """Place commands in this file to access the data electronically. Don't remove any missing values, or deal with outliers. Make sure you have legalities correct, both intellectual property and personal data privacy rights. Beyond the legal side also think about the ethical issues around this data. """
 
+
 def data():
     """Read the data from the web or local file, returning structured format such as a data frame"""
     raise NotImplementedError
@@ -101,11 +102,39 @@ def select_top(conn, table,  n):
     return rows
 
 def head(conn, table, n=5):
+    """
+    Print n first rows of the table
+    :param conn: the Connection object
+    :param table: The table to query
+    :param n: Number of rows to query
+    """
   rows = select_top(conn, table, n)
   for r in rows:
       print(r)
     
+def bound_box(longitude, latitude, radius):
+    """
+    get bounding box of a point
+    :param longitude: long. of the centre
+    :param latitude: lat. of the centre
+    :param radius: size of the side of the box
+    """
+  return (
+      longitude - radius/2,
+      longitude + radius/2,
+      latitude  - radius/2,
+      latitude  + radius/2)
 #def data_info(tablename = "pp_data", ):
+    
+def join_to_df(rows):
+    """ Convert query results into a DataFrame format.
+    :param rows: query results in rows
+    :return: query results in a DataFrame with labelled columns
+    """
+    return pd.DataFrame(rows, columns=['county', 'date_of_transfer', 'db_id', 'district', 'locality',
+                                       'new_build_flag', 'postcode','price','property_type',
+                                       'tenure_type','town_city','latitude', 'longitude',  'country', 
+                                       ])
     
    
 
