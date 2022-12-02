@@ -1,6 +1,14 @@
 from .config import *
 
 from fynesse import access
+import math
+from math import radians, cos, sin, asin, sqrt
+import geopy.distance
+import matplotlib
+import datetime
+import statsmodels.api as sm
+import pygeos
+import pgeocode
 """These are the types of import we might expect in this file
 import pandas
 import bokeh
