@@ -6,14 +6,18 @@ import httplib2
 #import tables
 #import mongodb
 #import sqlite
-import pymysql
 import urllib.request
+import pandas as pd
 import numpy as np
+import pymysql
+import yaml
+from ipywidgets import interact_manual, Text, Password
+import datetime
+import osmnx as ox
+import zipfile
 from shapely.geometry import Point 
 import geopandas as gpd
-import pandas as pd
 import seaborn as sbn
-import pandas as pd
 
 
 # This file accesses the data
