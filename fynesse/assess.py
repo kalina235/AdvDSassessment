@@ -68,10 +68,10 @@ def plot_heatmaps(conn, location, dates, period_in_days, coord = None, modulo = 
     begdate, enddate = dates
     delta = datetime.timedelta(days=period_in_days)
     while(begdate < enddate):
-    j = begdate+delta
-    dfslice = inner_join(conn, coord, dates = (begdate, j), extra_stuff = f"pp.db_id mod {modulo} = 0")
-    plot_price_heatmap(conn, location, dfslice, dates = (begdate,j))
-    begdate = j
+      j = begdate+delta
+      dfslice = inner_join(conn, coord, dates = (begdate, j), extra_stuff = f"pp.db_id mod {modulo} = 0")
+      plot_price_heatmap(conn, location, dfslice, dates = (begdate,j))
+      begdate = j
     
  def plot_price_through_date_range(conn, df, info, date_range=356, box_radius=0.02, property_type = " "):
     df['date_of_transfer'] = pd.to_datetime(df['date_of_transfer'])
