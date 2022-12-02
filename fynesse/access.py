@@ -281,16 +281,16 @@ def inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.
       TRUE
     """
     if dates != None:
-    (beg, end) = dates
-    join+= f"AND pp.date_of_transfer >= '{beg}' AND pp.date_of_transfer <= '{end}'"
+        (beg, end) = dates
+        join+= f"AND pp.date_of_transfer >= '{beg}' AND pp.date_of_transfer <= '{end}'"
     if coord != None:
-    (minlon, maxlon, minlat, maxlat) = bound_box(*coord,radius)
-    #print(minlon, maxlon, minlat, maxlat)
-    join+= f"AND lattitude > {minlat} AND longitude < {maxlon} "
-    join+= f"AND lattitude < {maxlat} AND longitude > {minlon} "
+        (minlon, maxlon, minlat, maxlat) = bound_box(*coord,radius)
+        #print(minlon, maxlon, minlat, maxlat)
+        join+= f"AND lattitude > {minlat} AND longitude < {maxlon} "
+        join+= f"AND lattitude < {maxlat} AND longitude > {minlon} "
     if extra_stuff != None:
-    if extra_stuff != "":
-      join+= "AND " + extra_stuff
+        if extra_stuff != "":
+          join+= "AND " + extra_stuff
     new_db = kexecute(conn, join)
     #print(new_db)
     df = join_to_df(new_db)
