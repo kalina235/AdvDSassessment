@@ -23,6 +23,29 @@ import pandas as pd
 def data():
     """Read the data from the web or local file, returning structured format such as a data frame"""
     raise NotImplementedError
+    
+def create_connection(user, password, host, database, port=3306):
+    """ Create a database connection to the MariaDB database
+        specified by the host url and database name.
+    :param user: username
+    :param password: password
+    :param host: host url
+    :param database: database
+    :param port: port number
+    :return: Connection object or None
+    """
+    conn = None
+    try:
+        conn = pymysql.connect(user=user,
+                               passwd=password,
+                               host=host,
+                               port=port,
+                               local_infile=1,
+                               db=database
+                               )
+    except Exception as e:
+        print(f"Error connecting to the MariaDB Server: {e}")
+    return conn
 
 def kexecute(conn, sqlquery =""):
     curfresh = conn.cursor()
@@ -30,7 +53,7 @@ def kexecute(conn, sqlquery =""):
     ret = curfresh.fetchall()
     curfresh.close()
     return ret
-    
+   
 def create_pcd_data(conn):
   kexecute(f'DROP TABLE IF EXISTS `postcode_data`;')
   kexecute(f'''CREATE TABLE IF NOT EXISTS `postcode_data` (
@@ -104,10 +127,12 @@ def fresh_pp_database_creation(conn):
   conn.commit()
 
 def download_prop_data(beg_year=1995, end_year=2022):
+    """ Download data between bey_year and end_year inclusive"""
   for year in range(beg_year, end_year+1):
     urllib.request.urlretrieve(f'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{year}.csv', f'pp_data{year}.csv')
    
 def upload_prop_data(conn, beg_year=1995, end_year=2022):
+        """ Upload data from local storage between bey_year and end_year inclusive into pp_data table"""
   for year in range(beg_year, end_year+1):
     print(year)
     kexecute(conn, f'''
