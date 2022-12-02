@@ -295,7 +295,7 @@ def inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.
     #print(new_db)
     df = join_to_df(new_db)
     if(df.empty):
-    return gpd.GeoDataFrame(new_db)
+        return gpd.GeoDataFrame(new_db)
     gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.longitude, df.latitude))
     return gdf
    
