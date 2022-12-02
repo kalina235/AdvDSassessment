@@ -127,8 +127,8 @@ def fresh_pp_database_creation(conn):
   conn.commit()
 
 def download_prop_data(beg_year=1995, end_year=2022):
- """ Download data between bey_year and end_year inclusive"""
-    for year in range(beg_year, end_year+1):
+  """ Download data between bey_year and end_year inclusive"""
+  for year in range(beg_year, end_year+1):
         urllib.request.urlretrieve(f'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{year}.csv', f'pp_data{year}.csv')
    
 def upload_prop_data(conn, beg_year=1995, end_year=2022):
@@ -236,9 +236,9 @@ def create_connection(user, password, host, database, port=3306):
     
     
 def inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.5):
-  kexecute(conn, f'DROP TABLE IF EXISTS `prices_coordinates_data`;')
-  kexecute(conn, f'''
-  CREATE TABLE IF NOT EXISTS `prices_coordinates_data` (
+    kexecute(conn, f'DROP TABLE IF EXISTS `prices_coordinates_data`;')
+    kexecute(conn, f'''
+    CREATE TABLE IF NOT EXISTS `prices_coordinates_data` (
     `price` int(10) unsigned NOT NULL,
     `date_of_transfer` date NOT NULL,
     `postcode` varchar(8) COLLATE utf8_bin NOT NULL,
@@ -253,8 +253,8 @@ def inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.
     `lattitude` decimal(11,8) NOT NULL,
     `longitude` decimal(10,8) NOT NULL,
     `db_id` bigint(20) unsigned NOT NULL
-  ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;''')
-  join = """
+    ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;''')
+    join = """
     SELECT
       pp.county,
       pp.date_of_transfer,
@@ -279,24 +279,24 @@ def inner_join(conn, coord = None, dates = None, extra_stuff = None, radius = 0.
       pp.postcode = pd.postcode
     WHERE
       TRUE
-  """
-  if dates != None:
+    """
+    if dates != None:
     (beg, end) = dates
     join+= f"AND pp.date_of_transfer >= '{beg}' AND pp.date_of_transfer <= '{end}'"
-  if coord != None:
+    if coord != None:
     (minlon, maxlon, minlat, maxlat) = bound_box(*coord,radius)
     #print(minlon, maxlon, minlat, maxlat)
     join+= f"AND lattitude > {minlat} AND longitude < {maxlon} "
     join+= f"AND lattitude < {maxlat} AND longitude > {minlon} "
-  if extra_stuff != None:
+    if extra_stuff != None:
     if extra_stuff != "":
       join+= "AND " + extra_stuff
-  new_db = kexecute(conn, join)
-  #print(new_db)
-  df = join_to_df(new_db)
-  if(df.empty):
+    new_db = kexecute(conn, join)
+    #print(new_db)
+    df = join_to_df(new_db)
+    if(df.empty):
     return gpd.GeoDataFrame(new_db)
-  gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.longitude, df.latitude))
-  return gdf
+    gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.longitude, df.latitude))
+    return gdf
    
 
