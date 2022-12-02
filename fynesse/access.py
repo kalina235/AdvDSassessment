@@ -70,22 +70,22 @@ def sanity_checks(conn):
     Print out some sanity_checks to make sure the database was created succesfully
     :param conn: the Connection object
     """
-  print("\n indexes in pp data are:")
-  print(access.kexecute(conn, f'SHOW INDEXES from pp_data;'))
-  print("\nsum of all entries:")
-  print(access.kexecute(conn, f'SELECT COUNT(*) FROM `pp_data`')) #this supposed to be around 27mln for data until oct-2022
-  print("\nsum of all entries on March 15 2018:")
-  print(access.kexecute(conn, f'SELECT COUNT(*) FROM pp_data WHERE date_of_transfer = "2018-03-15"'))
-  print("\nsum of all entries before 2003:")
-  print(access.kexecute(conn, f'SELECT COUNT(*) FROM pp_data WHERE date_of_transfer < "2003-01-01"'))
-  print("\n sum of all entries by year:")
-  print(access.kexecute(conn, f'SELECT YEAR(date_of_transfer), COUNT(*) FROM pp_data GROUP BY YEAR(date_of_transfer)')) #correct counts for this below :)
-  print("\n# of entries in postcode_data")
-  print(access.kexecute(conn, f'SELECT max(db_id) FROM postcode_data')) #2.6MLN
-  print("\n columns of pp_data are:", access.kexecute(conn, f"show columns from pp_data")) #columns
-  print("\n columns of postcode_data are:\n", access.kexecute(conn, f"show columns from postcode_data")) #columns
-  print("\n the first 5 entries of pp_data are above\n", access.head(conn, "pp_data", 5))
-  print("\n the first 5 entries of postcode_data are above\n", access.head(conn, "postcode_data", 5))
+    print("\n indexes in pp data are:")
+    print(access.kexecute(conn, f'SHOW INDEXES from pp_data;'))
+    print("\nsum of all entries:")
+    print(access.kexecute(conn, f'SELECT COUNT(*) FROM `pp_data`')) #this supposed to be around 27mln for data until oct-2022
+    print("\nsum of all entries on March 15 2018:")
+    print(access.kexecute(conn, f'SELECT COUNT(*) FROM pp_data WHERE date_of_transfer = "2018-03-15"'))
+    print("\nsum of all entries before 2003:")
+    print(access.kexecute(conn, f'SELECT COUNT(*) FROM pp_data WHERE date_of_transfer < "2003-01-01"'))
+    print("\n sum of all entries by year:")
+    print(access.kexecute(conn, f'SELECT YEAR(date_of_transfer), COUNT(*) FROM pp_data GROUP BY YEAR(date_of_transfer)')) #correct counts for this below :)
+    print("\n# of entries in postcode_data")
+    print(access.kexecute(conn, f'SELECT max(db_id) FROM postcode_data')) #2.6MLN
+    print("\n columns of pp_data are:", access.kexecute(conn, f"show columns from pp_data")) #columns
+    print("\n columns of postcode_data are:\n", access.kexecute(conn, f"show columns from postcode_data")) #columns
+    print("\n the first 5 entries of pp_data are above\n", access.head(conn, "pp_data", 5))
+    print("\n the first 5 entries of postcode_data are above\n", access.head(conn, "postcode_data", 5))
     
 def select_top(conn, table,  n):
     """
